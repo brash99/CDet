@@ -23,7 +23,7 @@ NumModules = 3
 length_paddle = 0.51 # 51 cm length
 bar_thickness = 0.073 # 14 bars => 73 mm
 mirror_thickness = 0.007 # 5mm mirros + 1mm gap on either side
-yoffset = 0.15 # horizontal offset of subgroups relative to module center
+yoffset = 0.075 # horizontal offset of subgroups relative to module center
 zpos_ecal = 8.00
 layer1_offset = 0.25
 layer2_offset = 0.15
@@ -163,6 +163,7 @@ print("earm.cdet.zpos = ")
 for layer in range(NumLayers):
     for side in range(NumSides):
         for module in range(NumModules):
+            localmodule = module + NumModules*layer
             for bar in range(NumBars):
                 for paddle in range(NumPaddles):
                     if (layer == 0):
@@ -171,7 +172,7 @@ for layer in range(NumLayers):
                         zpos = zpos2
 
                     # Search for the rows that match the current module, and PMT number
-                    module_rows = data[np.where(data[:,0] == module+1)]
+                    module_rows = data[np.where(data[:,0] == localmodule+1)]
                     for row in module_rows:
                         if row[1] == 2-side:
                             if row[2] == 14-bar:
